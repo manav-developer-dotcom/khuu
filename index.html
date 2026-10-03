@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>For Khushi 💌</title>
+<style>
+  :root {
+    --ios-pink: #ff2d55;
+    --ios-red: #ff3b30;
+    --ios-blue: #007aff;
+    --ios-bg: #f2f2f7;
+    --ios-card: rgba(255,255,255,.72);
+    --ios-text: #1c1c1e;
+    --ios-sub: #8e8e93;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color: transparent; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', sans-serif;
+    background: linear-gradient(180deg, #ffeef2 0%, #f2f2f7 40%, #e9e4f5 100%);
+    min-height: 100vh;
+    color: var(--ios-text);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ---------- Dynamic Island / Notch ---------- */
+  .island {
+    position: fixed; top: 12px; left: 50%; transform: translateX(-50%);
+    width: 126px; height: 36px; background: #000; border-radius: 20px;
+    z-index: 100; display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 4px 20px rgba(0,0,0,.25);
+  }
+  .island .cam { width: 10px; height: 10px; border-radius: 50%; background: #1a1a2e; margin-left: auto; margin-right: 14px; box-shadow: inset 0 0 3px #333; }
+  .island .notif {
+    position: absolute; left: 50%; transform: translateX(-50%);
+    color: #fff; font-size: 10px; font-weight: 600; letter-spacing: .3px;
+    white-space: nowrap; opacity: 0; transition: opacity .4s;
+  }
+  .island .notif.show { opacity: 1; }
+
+  .statusbar {
+    position: fixed; top: 0; left: 0; right: 0; height: 54px; z-index: 99;
+    display: flex; justify-content: space-between; align-items: flex-end;
+    padding: 0 28px 6px; font-size: 14px; font-weight: 600; color: #1c1c1e;
+    pointer-events: none;
+  }
+
+  /* ---------- Pages ---------- */
+  .page { display:none; min-height: 100vh; padding: 90px 22px 120px; text-align: center;
+    animation: pageIn .55s cubic-bezier(.32,.72,0,1); }
+  .page.active { display:block; }
+  @keyframes pageIn { from { opacity:0; transform: translateY(24px) scale(.98);} to { opacity:1; transform:none;} }
+
+  h1 {
+    font-size: clamp(2.1rem, 7vw, 3.4rem); font-weight: 800; letter-spacing: -1.5px;
+    background: linear-gradient(135deg, #ff2d55, #af52de);
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+  }
+  h2 { font-size: clamp(1.15rem, 4vw, 1.5rem); font-weight: 700; letter-spacing: -.5px; color: var(--ios-text); margin: 26px 0 14px; }
+  p { color: var(--ios-sub); font-size: 1.05rem; max-width: 560px; margin: 8px auto; line-height: 1.6; font-weight: 400; }
+
+  /* ---------- iOS Cards ---------- */
+  .card {
+    background: var(--ios-card);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-radius: 24px; padding: 28px 22px; margin: 16px auto; max-width: 560px;
+    box-shadow: 0 8px 32px rgba(0,0,0,.08), inset 0 0 0 1px rgba(255,255,255,.6);
+  }
+
+  /* ---------- iOS Buttons ---------- */
+  .btn {
+    display: inline-block; padding: 16px 42px; font-size: 1.1rem; font-weight: 600;
+    border: none; border-radius: 22px; cursor: pointer; margin: 8px;
+    transition: transform .15s cubic-bezier(.34,1.56,.64,1), opacity .2s;
+    font-family: inherit;
+  }
+  .btn:active { transform: scale(.94); }
+  .btn-yes { background: var(--ios-pink); color: #fff; box-shadow: 0 8px 24px rgba(255,45,85,.4); }
+  .btn-maybe { background: rgba(120,120,128,.12); color: var(--ios-red); backdrop-filter: blur(10px); }
+
+  /* ---------- Envelope ---------- */
+  .envelope-wrap { margin-top: 10vh; }
+  .envelope {
+    font-size: 5.5rem; cursor: pointer; display:inline-block;
+    animation: wiggle 2s cubic-bezier(.36,.07,.19,.97) infinite;
+    filter: drop-shadow(0 12px 24px rgba(255,45,85,.3));
+  }
+  @keyframes wiggle { 0%,100%{transform:rotate(0);} 20%{transform:rotate(-7deg);} 40%{transform:rotate(7deg);} 60%{transform:rotate(-5deg);} 80%{transform:rotate(5deg);} }
+
+  .big-heart { font-size: 4.5rem; display:inline-block; animation: heartbeat 1.2s cubic-bezier(.34,1.56,.64,1) infinite; cursor:pointer; user-select:none;
+    filter: drop-shadow(0 10px 20px rgba(255,45,85,.35)); }
+  @keyframes heartbeat { 0%,100%{transform:scale(1);} 25%{transform:scale(1.18);} 45%{transform:scale(1);} 60%{transform:scale(1.12);} }
+
+  /* ---------- Her favourite quote ---------- */
+  .fav-quote {
+    max-width: 580px; margin: 28px auto; padding: 38px 26px;
+    background: linear-gradient(135deg, rgba(255,255,255,.85), rgba(240,235,255,.8));
+    backdrop-filter: blur(24px) saturate(200%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%);
+    border-radius: 28px;
+    box-shadow: 0 14px 40px rgba(120,80,200,.18), inset 0 0 0 1px rgba(255,255,255,.7);
+    animation: glowPulse 3.5s ease-in-out infinite;
+    position: relative; overflow: hidden;
+  }
+  .fav-quote::before {
+    content:''; position:absolute; inset:0;
+    background: radial-gradient(circle at 20% 10%, rgba(255,214,227,.6), transparent 50%),
+                radial-gradient(circle at 85% 90%, rgba(200,180,255,.5), transparent 50%);
+    pointer-events:none;
+  }
+  @keyframes glowPulse {
+    0%,100% { box-shadow: 0 14px 40px rgba(120,80,200,.18), inset 0 0 0 1px rgba(255,255,255,.7); }
+    50% { box-shadow: 0 18px 55px rgba(120,80,200,.35), inset 0 0 0 1px rgba(255,255,255,.9); }
+  }
+  .fav-quote .sky { font-size: 2.4rem; margin-bottom: 10px; position:relative; }
+  .fav-quote .line {
+    font-size: clamp(1.35rem, 4.5vw, 1.85rem); font-weight: 700; letter-spacing: -.5px;
+    color: #3a2a55; line-height: 1.4; position:relative;
+  }
+  .fav-quote .tag { margin-top: 14px; font-size: .9rem; color: #9a7bb8; font-weight: 500; letter-spacing: .5px; text-transform: uppercase; position:relative; }
+
+  /* ---------- List rows (iOS settings style) ---------- */
+  .ios-list { max-width: 560px; margin: 16px auto; border-radius: 20px; overflow: hidden;
+    background: var(--ios-card); backdrop-filter: blur(20px);
+    box-shadow: 0 8px 32px rgba(0,0,0,.08), inset 0 0 0 1px rgba(255,255,255,.6); }
+  .ios-row {
+    display: flex; align-items: center; gap: 14px; padding: 18px 20px; text-align: left;
+    border-bottom: 1px solid rgba(0,0,0,.06); font-size: 1.02rem; font-weight: 500; color: var(--ios-text);
+    transition: background .2s; cursor: default;
+  }
+  .ios-row:last-child { border-bottom: none; }
+  .ios-row:active { background: rgba(0,0,0,.04); }
+  .ios-row .icon {
+    width: 38px; height: 38px; border-radius: 10px; display:flex; align-items:center; justify-content:center;
+    font-size: 1.15rem; flex-shrink: 0; color: #fff;
+  }
+  .ic-pink { background: linear-gradient(135deg,#ff6482,#ff2d55); }
+  .ic-purple { background: linear-gradient(135deg,#c48cf2,#af52de); }
+  .ic-blue { background: linear-gradient(135deg,#5ac8fa,#007aff); }
+  .ic-orange { background: linear-gradient(135deg,#ffcc66,#ff9500); }
+  .ic-green { background: linear-gradient(135deg,#7ee2a8,#34c759); }
+
+  /* ---------- Apology generator ---------- */
+  .apology-box {
+    min-height: 120px; display:flex; align-items:center; justify-content:center;
+    padding: 24px;
+  }
+  .apology-box p { font-size: 1.2rem; color: #5e3a6e; font-style: italic; font-weight: 500; transition: opacity .25s; }
+
+  /* ---------- Cake ---------- */
+  .cake { font-size: 5rem; cursor: pointer; display:inline-block; transition: transform .3s cubic-bezier(.34,1.56,.64,1); user-select:none;
+    filter: drop-shadow(0 10px 22px rgba(120,60,30,.35)); }
+  .cake:active { transform: scale(.85); }
+
+  /* ---------- Handwritten note ---------- */
+  .note {
+    background: #fffbe8; border-radius: 18px; padding: 28px; max-width: 540px;
+    margin: 22px auto; transform: rotate(-1.2deg);
+    box-shadow: 0 10px 30px rgba(0,0,0,.12);
+    font-family: 'Snell Roundhand', 'Segoe Script', cursive; font-size: 1.2rem; color:#5a4a2f; line-height:1.75; text-align:left;
+  }
+
+  /* ---------- Floating effects ---------- */
+  .floating-heart { position: fixed; pointer-events:none; animation: floatUp ease-out forwards; z-index: 5; }
+  @keyframes floatUp { 0%{transform:translateY(0) scale(.6); opacity:1;} 100%{transform:translateY(-100vh) scale(1.2); opacity:0;} }
+
+  .lava-burst { position: fixed; font-size: 1.8rem; pointer-events:none; animation: burst 1s cubic-bezier(.22,.9,.3,1) forwards; z-index: 6; }
+  @keyframes burst { 0%{transform:translate(0,0) scale(.4) rotate(0); opacity:1;} 100%{transform:translate(var(--dx),var(--dy)) scale(1.4) rotate(30deg); opacity:0;} }
+
+  .sparkle { position: fixed; pointer-events:none; animation: spark 1.1s ease-out forwards; z-index: 7; font-size: 1.3rem; }
+  @keyframes spark { 0%{transform:scale(0) rotate(0); opacity:1;} 100%{transform:scale(1.8) rotate(90deg); opacity:0;} }
+
+  .confetti { position: fixed; width:10px; height:14px; top:-24px; border-radius: 3px; animation: confettiFall linear forwards; z-index: 8; }
+  @keyframes confettiFall { to { transform: translateY(112vh) rotate(680deg); } }
+
+  /* ---------- Page Control (iOS page dots + swipe hint) ---------- */
+  .pager {
+    position: fixed; bottom: 22px; left: 50%; transform: translateX(-50%);
+    background: rgba(255,255,255,.65); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    border-radius: 25px; padding: 10px 18px; z-index: 90;
+    box-shadow: 0 8px 28px rgba(0,0,0,.12), inset 0 0 0 1px rgba(255,255,255,.7);
+    display: flex; align-items: center; gap: 12px;
+  }
+  .pager .dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(120,120,128,.35); cursor: pointer; transition: all .3s cubic-bezier(.34,1.56,.64,1); }
+  .pager .dot.on { background: var(--ios-pink); width: 22px; border-radius: 5px; }
+  .pager .label { font-size: 11px; font-weight: 600; color: var(--ios-sub); letter-spacing: .3px; min-width: 64px; text-align:left; }
+
+  .haptic-hint { position: fixed; bottom: 76px; left:50%; transform:translateX(-50%); font-size: 12px; color: var(--ios-sub); font-weight:500; z-index: 90; opacity:.8; }
+
+  @media (max-width: 480px) {
+    .island { width: 110px; height: 32px; }
+    .statusbar { padding: 0 20px 6px; }
+  }
+</style>
+<base target="_blank">
+</head>
+<body>
+
+<div class="statusbar"><span id="clock">9:41</span><span>📶 🔋</span></div>
+<div class="island"><span class="notif" id="islandNotif">💌 1 new message</span><span class="cam"></span></div>
+
+<!-- PAGE 1 -->
+<div class="page active" id="p1">
+  <div class="envelope-wrap">
+    <div class="envelope" onclick="openLetter()">💌</div>
+  </div>
+  <h1 style="margin-top:24px;">Khushi,</h1>
+  <p style="font-size:1.2rem; color:#6e4a58;">you have one unread message.</p>
+  <p style="margin-top:6px; font-weight:500; color:#9a7bb8;">Tap the envelope, KHU. It's important.</p>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="p2">
+  <div class="big-heart" onclick="spawnHearts(event)">💔➡️❤️</div>
+  <h1>Khushi Sharma...</h1>
+  <p>I'm sorry. Truly, deeply, chocolate-coated sorry.</p>
+  <p style="font-weight:500; color:#6e4a58;">You are my <b>Choco Lava Cake</b> — warm, sweet, and the best part of my whole life.</p>
+
+  <div class="fav-quote">
+    <div class="sky">☁️🌤️💙</div>
+    <div class="line">"You are the sky,<br>everything else is just the weather."</div>
+    <div class="tag">— your favourite line, Khushi, and it's about you</div>
+  </div>
+
+  <h2>Will you forgive me, KHU? 🥺</h2>
+  <button class="btn btn-yes" onclick="showPage(4); confetti();">Yes 💕</button>
+  <button class="btn btn-maybe" id="noBtn" onclick="moveNo(event)">No 🙅</button>
+  <p id="noCount" style="font-size:.9rem;"></p>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="p3">
+  <h1>Why I'm Sorry 😔</h1>
+  <div class="ios-list">
+    <div class="ios-row"><span class="icon ic-pink">🍫</span>I hurt the sweetest person I know — my Choco Lava Cake.</div>
+    <div class="ios-row"><span class="icon ic-purple">🌍</span>You're my everything, and I acted like you weren't.</div>
+    <div class="ios-row"><span class="icon ic-blue">💡</span>You're smart, kind, and 19 years of pure sunshine.</div>
+    <div class="ios-row"><span class="icon ic-orange">🔁</span>I promise to do better — for you, KHU.</div>
+  </div>
+
+  <h2>Need more apologies? Generate one ✨</h2>
+  <div class="card apology-box"><p id="apologyText">"I'm sorry" doesn't even begin to cover it.</p></div>
+  <button class="btn btn-yes" onclick="genApology()">Generate Apology</button>
+
+  <h2>Tap the cake — it's full of love 🍰</h2>
+  <div class="cake" id="cake" onclick="tapCake(event)">🍰</div>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="p4">
+  <div class="big-heart" style="animation-duration:.8s;" onclick="spawnHearts(event)">💖</div>
+  <h1>Thank You, KHU!</h1>
+  <p>Best. Girlfriend. Ever. (And only 19 — imagine how amazing you'll be at 20 😏)</p>
+  <div class="note">
+    Dear Khushi,<br><br>
+    You are my choco lava cake, my everything, my KHU.
+    Thank you for forgiving me. I'll never stop trying to be
+    the person you deserve.<br><br>
+    ❤️ Forever yours
+  </div>
+  <h2>Tap anywhere — happiness is raining 🎉</h2>
+  <button class="btn btn-yes" onclick="confetti()">More Confetti 🎊</button>
+</div>
+
+<div class="haptic-hint" id="hint">swipe or use the dots ↓</div>
+<div class="pager" id="pager">
+  <span class="label" id="pagerLabel">Message</span>
+  <span class="dot on" onclick="showPage(1)"></span>
+  <span class="dot" onclick="showPage(2)"></span>
+  <span class="dot" onclick="showPage(3)"></span>
+  <span class="dot" onclick="showPage(4)"></span>
+</div>
+
+<script>
+  const pages = ['p1','p2','p3','p4'];
+  const labels = ['Message','Sorry','Reasons','Forgiven'];
+  let noClicks = 0;
+  const noMsgs = ['Are you sure? 🥺','Really sure? 💔','Think again, KHU...','Nope, button broken 😅','Okay I give up, just press YES 💕'];
+
+  // live iPhone clock
+  function tick(){
+    const d = new Date();
+    document.getElementById('clock').textContent = d.getHours()+':'+String(d.getMinutes()).padStart(2,'0');
+  }
+  tick(); setInterval(tick, 15000);
+
+  function showPage(n){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+    document.getElementById('p'+n).classList.add('active');
+    document.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('on',i===n-1));
+    document.getElementById('pagerLabel').textContent = labels[n-1];
+    document.getElementById('hint').style.display = n===1 ? 'block' : 'none';
+    window.scrollTo({top:0, behavior:'smooth'});
+  }
+
+  function openLetter(){
+    islandNotify('💌 Message opened');
+    spawnHearts({clientX:innerWidth/2, clientY:innerHeight/2});
+    setTimeout(()=>showPage(2), 450);
+  }
+
+  function islandNotify(text){
+    const n = document.getElementById('islandNotif');
+    n.textContent = text; n.classList.add('show');
+    setTimeout(()=>n.classList.remove('show'), 2200);
+  }
+
+  function moveNo(e){
+    const b = document.getElementById('noBtn');
+    noClicks++;
+    document.getElementById('noCount').textContent = noMsgs[Math.min(noClicks-1, noMsgs.length-1)];
+    if(noClicks >= noMsgs.length){ b.style.display='none'; return; }
+    b.style.position='fixed';
+    b.style.left = Math.random()*(innerWidth-170)+'px';
+    b.style.top = Math.random()*(innerHeight-90)+'px';
+    b.style.zIndex = 30;
+  }
+
+  const apologies = [
+    "I'm sorry, Khushi — you deserve better than my mistakes.",
+    "Sorry KHU. You're my choco lava cake and I melted without you.",
+    "Khushi Sharma, I'm sorry. Life is 100% less sweet without your smile.",
+    "Sorry my love — you're 19 years of magic and I'm still learning magic.",
+    "Forgive me, KHU. My world is boring without you in it.",
+    "I'm sorry, Khushi. I'd trade every cake in the world for your laugh.",
+    "Sorry KHU. You're my everything — I forgot that for a moment.",
+    "Sorry babe. Even chocolate doesn't compare to you... and that's saying something."
+  ];
+  function genApology(){
+    const t = document.getElementById('apologyText');
+    let i;
+    do { i = Math.floor(Math.random()*apologies.length); } while(apologies[i]===t.textContent);
+    t.style.opacity=0;
+    setTimeout(()=>{ t.textContent = apologies[i]; t.style.opacity=1; }, 220);
+  }
+
+  function tapCake(e){
+    const emojis = ['🍫','❤️','💕','✨','🤎','💌'];
+    for(let i=0;i<8;i++){
+      const s = document.createElement('div');
+      s.className='lava-burst';
+      s.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+      s.style.left = e.clientX+'px'; s.style.top = e.clientY+'px';
+      s.style.setProperty('--dx',(Math.random()*240-120)+'px');
+      s.style.setProperty('--dy',(-60-Math.random()*170)+'px');
+      document.body.appendChild(s);
+      setTimeout(()=>s.remove(), 1000);
+    }
+  }
+
+  function spawnHearts(e){
+    for(let i=0;i<10;i++){
+      const h = document.createElement('div');
+      h.className='floating-heart';
+      h.textContent = ['❤️','💕','💖','🤎','💗'][Math.floor(Math.random()*5)];
+      h.style.left = (e.clientX-20+Math.random()*40)+'px';
+      h.style.top = e.clientY+'px';
+      h.style.animationDuration = (2.2+Math.random()*2)+'s';
+      h.style.fontSize = (1+Math.random()*1.4)+'rem';
+      document.body.appendChild(h);
+      setTimeout(()=>h.remove(), 4200);
+    }
+  }
+
+  function confetti(){
+    islandNotify('🎉 Khushi said YES!');
+    const colors = ['#ff2d55','#ffcc00','#0a84ff','#30d158','#bf5af2','#ff9f0a'];
+    for(let i=0;i<90;i++){
+      const c = document.createElement('div');
+      c.className='confetti';
+      c.style.left = Math.random()*100+'vw';
+      c.style.background = colors[Math.floor(Math.random()*colors.length)];
+      c.style.animationDuration = (2.2+Math.random()*3)+'s';
+      c.style.animationDelay = (Math.random()*1.2)+'s';
+      document.body.appendChild(c);
+      setTimeout(()=>c.remove(), 5600);
+    }
+  }
+
+  // sparkle trail on the celebration page
+  document.addEventListener('click', e=>{
+    if(!document.getElementById('p4').classList.contains('active')) return;
+    if(e.target.closest('button, .pager')) return;
+    for(let i=0;i<5;i++){
+      const s = document.createElement('div');
+      s.className='sparkle'; s.textContent='✨';
+      s.style.left = (e.clientX-10+Math.random()*20)+'px';
+      s.style.top = (e.clientY-10+Math.random()*20)+'px';
+      document.body.appendChild(s);
+      setTimeout(()=>s.remove(), 1200);
+    }
+  });
+
+  // iOS-style swipe navigation
+  let touchX = 0;
+  document.addEventListener('touchstart', e=>{ touchX = e.touches[0].clientX; }, {passive:true});
+  document.addEventListener('touchend', e=>{
+    const dx = e.changedTouches[0].clientX - touchX;
+    if(Math.abs(dx) < 60) return;
+    const cur = pages.findIndex(id=>document.getElementById(id).classList.contains('active')) + 1;
+    if(dx < 0 && cur < 4) showPage(cur+1);
+    if(dx > 0 && cur > 1) showPage(cur-1);
+  }, {passive:true});
+
+  // Dynamic Island welcome
+  setTimeout(()=>islandNotify('💌 1 new message'), 800);
+</script>
+</body>
+</html>
